@@ -18,7 +18,7 @@ module.exports = {
           extensions: ['.ts', '.tsx', '.js', '.json'],
         },
         use: [
-            'babel-loader', // 순서 중요! (ts-loader보다 앞에 와야 함)
+            // 'babel-loader', // 순서 중요! (ts-loader보다 앞에 와야 함)
             'ts-loader',
         ],
       },
