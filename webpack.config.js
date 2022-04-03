@@ -4,11 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const path = require('path');
+const PUBLIC_PATH = prod ? './' : '/';
+
 module.exports = {
     mode: prod ? 'production' : 'development',
     entry: './src/index.tsx',
     output: {
-        path: __dirname + '/dist/',
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'main.js',
+        publicPath: PUBLIC_PATH,
     },
     module: {
         rules: [
@@ -18,10 +23,7 @@ module.exports = {
                 resolve: {
                     extensions: ['.ts', '.tsx', '.js', '.json'],
                 },
-                use: [
-                    // 'babel-loader', // 순서 중요! (ts-loader보다 앞에 와야 함)
-                    'ts-loader',
-                ],
+                use: ['ts-loader'],
             },
             {
                 test: /\.css$/,
@@ -30,6 +32,7 @@ module.exports = {
         ],
     },
     devServer: {
+        open: true,
         historyApiFallback: true,
     },
     devtool: prod ? undefined : 'source-map',
